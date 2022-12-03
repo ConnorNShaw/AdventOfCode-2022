@@ -7,10 +7,9 @@ import java.util.Scanner;
 public class Part2 {
     //Add up all groups of numbers in the input file, then find the sum of the largest three of the added numbers
     public static void main(String[] args) throws FileNotFoundException {
-        File inputFile = new File("src/input.txt");     //Set up input file
+        File inputFile = new File("Problem1/src/input.txt");     //Set up input file
         Scanner inputScanner = new Scanner(inputFile);           //Set up scanner
         ArrayList<Integer> totals = new ArrayList<>();           //List to hold added totals
-        ArrayList<Integer> topThree = new ArrayList<>();         //List for top three highest totals
         int total = 0, topThreeTotal = 0;
         while(inputScanner.hasNextLine()) {                      //While there is a next line to be read
             String data = inputScanner.nextLine();               //Grab the line

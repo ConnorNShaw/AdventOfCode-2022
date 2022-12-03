@@ -4,8 +4,7 @@ import java.util.*;
 
 public class Part1 {
     static int bTotal = 0;
-    private static HashMap conditions = new HashMap();
-
+    private static final HashMap<Character, Character> conditions = new HashMap<>();
     public static void main(String[] args) throws FileNotFoundException {
 
         //Problem Rules
@@ -16,7 +15,7 @@ public class Part1 {
         //add 3 if the round was a draw
         //add 6 if the round was a win
 
-        File inputFile = new File("src/input.txt");     //Set up input file
+        File inputFile = new File("Problem2/src/input.txt");     //Set up input file
         Scanner inputScanner = new Scanner(inputFile);           //Set up scanner
         char a, b;
 
@@ -37,15 +36,9 @@ public class Part1 {
     private static void align(char a, char b) {
         //Aligning all the letters to make things easier
         switch (b) {
-            case 'X':
-                checkMatch(a, 'A');
-                break;
-            case 'Y':
-                checkMatch(a, 'B');
-                break;
-            case 'Z':
-                checkMatch(a, 'C');
-                break;
+            case 'X' -> checkMatch(a, 'A');
+            case 'Y' -> checkMatch(a, 'B');
+            case 'Z' -> checkMatch(a, 'C');
         }
     }
     private static void checkMatch(char a, char b) {
@@ -54,20 +47,14 @@ public class Part1 {
             bTotal += 3;
         }
         //a lost, b won
-        else if(b != (char)conditions.get(a)) {
+        else if(b != conditions.get(a)) {
             bTotal += 6;
         }
         //add for player b's selected shapes
         switch (b) {
-            case 'A':
-                bTotal += 1;
-                break;
-            case 'B':
-                bTotal += 2;
-                break;
-            case 'C':
-                bTotal += 3;
-                break;
+            case 'A' -> bTotal += 1;
+            case 'B' -> bTotal += 2;
+            case 'C' -> bTotal += 3;
         }
     }
 }

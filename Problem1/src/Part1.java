@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Part1 {
     //Add up all groups of numbers in the input file, then find the largest of the added numbers
     public static void main(String[] args) throws FileNotFoundException {
-        File inputFile = new File("src/input.txt");     //Set up input file
+        File inputFile = new File("Problem1/src/input.txt");     //Set up input file
         Scanner inputScanner = new Scanner(inputFile);           //Set up scanner
         ArrayList<Integer> totals = new ArrayList<>();           //List to hold added totals
         int total = 0, maxTotal;

@@ -4,8 +4,8 @@ import java.util.*;
 
 public class Part2 {
     static int bTotal = 0;
-    private static HashMap winningMoves = new HashMap();
-    private static HashMap losingMoves = new HashMap();
+    private static final HashMap<Character, Character> winningMoves = new HashMap<>();
+    private static final HashMap<Character, Character> losingMoves = new HashMap<>();
 
     public static void main(String[] args) throws FileNotFoundException {
 
@@ -20,7 +20,7 @@ public class Part2 {
         //add 3 if the round was a draw
         //add 6 if the round was a win
 
-        File inputFile = new File("src/input.txt");     //Set up input file
+        File inputFile = new File("Problem2/src/input.txt");     //Set up input file
         Scanner inputScanner = new Scanner(inputFile);           //Set up scanner
         char a, b;
 
@@ -50,11 +50,11 @@ public class Part2 {
         }
         //Win is needed, so we make sure to grab a move that player a will always lose to
         if (b == 'Z') {
-            checkMatch(a, (char)losingMoves.get(a));
+            checkMatch(a, losingMoves.get(a));
         }
         //Lose is needed, so we make sure to grab a move that will let player a win
         if (b == 'X') {
-            checkMatch(a, (char)winningMoves.get(a));
+            checkMatch(a, winningMoves.get(a));
         }
     }
 
@@ -64,20 +64,14 @@ public class Part2 {
             bTotal += 3;
         }
         //a lost, b won
-        else if(b != (char)winningMoves.get(a)) {
+        else if(b != winningMoves.get(a)) {
             bTotal += 6;
         }
         //add for player b's selected shapes
         switch (b) {
-            case 'A':
-                bTotal += 1;
-                break;
-            case 'B':
-                bTotal += 2;
-                break;
-            case 'C':
-                bTotal += 3;
-                break;
+            case 'A' -> bTotal += 1;
+            case 'B' -> bTotal += 2;
+            case 'C' -> bTotal += 3;
         }
     }
 }
