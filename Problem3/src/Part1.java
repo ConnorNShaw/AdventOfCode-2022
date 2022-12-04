@@ -19,7 +19,7 @@ public class Part1 {
 
         fillPriorities();
 
-        while(inputScanner.hasNextLine()) {
+        while (inputScanner.hasNextLine()) {
             String group = inputScanner.nextLine();
             ArrayList<Character> compA = characterList(group.substring(0, group.length() / 2));
             ArrayList<Character> compB = characterList(group.substring(group.length() / 2));
@@ -29,10 +29,10 @@ public class Part1 {
     }
     private static void fillPriorities() {
         int i = 1;
-        for(char lower = 'a'; lower <= 'z'; lower++, i++) {
+        for (char lower = 'a'; lower <= 'z'; lower++, i++) {
             priorities.put(lower, i);
         }
-        for(char upper = 'A'; upper <= 'Z'; upper++, i++) {
+        for (char upper = 'A'; upper <= 'Z'; upper++, i++) {
             priorities.put(upper, i);
         }
     }

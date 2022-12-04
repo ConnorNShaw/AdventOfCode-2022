@@ -19,7 +19,7 @@ public class Part2 {
 
         fillPriorities();
 
-        while(inputScanner.hasNextLine()) {
+        while (inputScanner.hasNextLine()) {
             String line1 = inputScanner.nextLine();
             String line2 = inputScanner.nextLine();
             String line3 = inputScanner.nextLine();
@@ -32,10 +32,10 @@ public class Part2 {
     }
     private static void fillPriorities() {
         int i = 1;
-        for(char lower = 'a'; lower <= 'z'; lower++, i++) {
+        for (char lower = 'a'; lower <= 'z'; lower++, i++) {
             priorities.put(lower, i);
         }
-        for(char upper = 'A'; upper <= 'Z'; upper++, i++) {
+        for (char upper = 'A'; upper <= 'Z'; upper++, i++) {
             priorities.put(upper, i);
         }
     }

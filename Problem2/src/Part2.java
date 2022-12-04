@@ -34,7 +34,7 @@ public class Part2 {
         losingMoves.put('B', 'C');
 
         //Getting the input from the file
-        while(inputScanner.hasNextLine()) {
+        while (inputScanner.hasNextLine()) {
             String match = inputScanner.nextLine();
             a = match.charAt(0);
             b = match.charAt(2);
