@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
 public class Part1 {
@@ -24,15 +23,13 @@ public class Part1 {
             grid.add(convert(split));
         }
 
-        System.out.println(grid);
         System.out.println(countVisibleTrees(grid));
-        //System.out.println(checkIfVisible(1, 2, grid, 0, 3, 3));
     }
 
     private static ArrayList<Integer> convert(String[] split) {
         ArrayList<Integer> result = new ArrayList<>();
-        for (int i = 0; i < split.length; i++) {
-            result.add(Integer.parseInt(split[i]));
+        for (String s : split) {
+            result.add(Integer.parseInt(s));
         }
         return result;
     }
@@ -43,69 +40,50 @@ public class Part1 {
 
         for (int i = 0; i < grid.size(); i++) {
             for (int j = 0; j < grid.size(); j++) {
-                if (checkIfVisible(i, j, grid, 0, i, j)) {
+                if (checkIfVisible(i, j, grid)) {
                     count++;
-                    System.out.println(grid.get(i).get(j));
-                    System.out.println(i + " " + j + "\n");
                 }
             }
         }
-
         return count;
     }
 
-    private static boolean checkIfVisible(int i, int j, ArrayList<ArrayList<Integer>> grid, int direction, int iOriginal, int jOriginal) {
+    private static boolean checkIfVisible(int i, int j, ArrayList<ArrayList<Integer>> grid) {
 
-        switch (direction) {
-            //up
-            case 1:
-                if (i - 1 < 0 && grid.get(iOriginal).get(jOriginal) < grid.get(i).get(j)) {
-                    return true;
-                } else if (grid.get(iOriginal).get(jOriginal) < grid.get(i - 1).get(j)) {
-                    return checkIfVisible(i - 1, j, grid, 1, iOriginal, jOriginal);
-                } else {
-                    return false;
-                }
-            //left
-            case 2:
-                if (j - 1 < 0 && grid.get(iOriginal).get(jOriginal) < grid.get(i).get(j)) {
-                    return true;
-                } else if (grid.get(iOriginal).get(jOriginal) < grid.get(i).get(j - 1)) {
-                    return checkIfVisible(i, j - 1, grid, 1, iOriginal, jOriginal);
-                } else {
-                    return false;
-                }
-            //down
-            case 3:
-                if (i + 1 > grid.size() && grid.get(iOriginal).get(jOriginal) < grid.get(i).get(j)) {
-                    return true;
-                } else if (grid.get(iOriginal).get(jOriginal) < grid.get(i + 1).get(j)) {
-                    return checkIfVisible(i + 1, j, grid, 1, iOriginal, jOriginal);
-                } else {
-                    return false;
-                }
-            //right
-            case 4:
-                if (j + 1 > grid.size() && grid.get(iOriginal).get(jOriginal) < grid.get(i).get(j)) {
-                    return true;
-                } else if (grid.get(iOriginal).get(jOriginal) < grid.get(i).get(j + 1)) {
-                    return checkIfVisible(i, j + 1, grid, 1, iOriginal, jOriginal);
-                } else {
-                    return false;
-                }
-        }
-        if (i <= 0 || checkIfVisible(i, j, grid, 1, iOriginal, jOriginal)) {
+        if ((i <= 0 || j <= 0 || i >= grid.size() - 1 || j >= grid.size() - 1)) {
             return true;
         }
-        if (j <= 0 || checkIfVisible(i, j, grid, 2, iOriginal, jOriginal)) {
-            return true;
+
+        boolean resultHB = true, resultHT = true, resultVB = true,  resultVT = true;
+
+        ArrayList<Integer> horizontalSlice = grid.get(i);
+        ArrayList<Integer> verticalSlice = new ArrayList<>();
+        for (ArrayList<Integer> integers : grid) {
+            verticalSlice.add(integers.get(j));
         }
-        if (i >= grid.size() - 1 && checkIfVisible(i, j, grid, 3, iOriginal, jOriginal)) {
-            return true;
+
+        int currentTree = grid.get(i).get(j), b, t;
+        for (b = 0; b < j; b++) {
+            if (currentTree <= horizontalSlice.get(b)) {
+                resultHB = false;
+            }
         }
-        if (j >= grid.size() - 1 && checkIfVisible(i, j, grid, 4, iOriginal, jOriginal)) {
-            return true;
+        for (b = 0; b < i; b++) {
+            if (currentTree <= verticalSlice.get(b)) {
+                resultVB = false;
+            }
         }
-        return false;
+        for (t = grid.size() - 1; j < t; t--) {
+            if (currentTree <= horizontalSlice.get(t)) {
+                resultHT = false;
+            }
+        }
+        for (t = grid.size() - 1; i < t; t--) {
+            if (currentTree <= verticalSlice.get(t)) {
+                resultVT = false;
+            }
+        }
+
+        return resultHB || resultVB || resultHT || resultVT;
     }
 }
